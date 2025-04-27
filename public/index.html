@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezultat</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #0f0;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div id="result">Čekam rezultat...</div>
+
+    <script>
+        async function fetchResult() {
+            const res = await fetch('/api/rezultat');
+            const data = await res.json();
+            document.getElementById('result').innerText = data.selectedWord ? `Odabrano: ${data.selectedWord}` : 'Čekam rezultat...';
+        }
+
+        setInterval(fetchResult, 1000);
+    </script>
+</body>
+</html>
