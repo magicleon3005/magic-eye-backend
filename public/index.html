@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hr">
 <head>
@@ -10,22 +9,44 @@
             color: #0f0;
             font-size: 2rem;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: monospace;
         }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #0f0;
+            color: #111;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0a0;
+        }
     </style>
 </head>
 <body>
     <div id="result">Čekam rezultat...</div>
+    <button onclick="resetResult()">Resetiraj</button>
 
     <script>
         async function fetchResult() {
             const res = await fetch('/api/rezultat');
             const data = await res.json();
             document.getElementById('result').innerText = data.selectedWord ? `Odabrano: ${data.selectedWord}` : 'Čekam rezultat...';
+        }
+
+        async function resetResult() {
+            await fetch('/api/reset', { method: 'POST' });
+            document.getElementById('result').innerText = 'Čekam rezultat...';
         }
 
         setInterval(fetchResult, 1000);
