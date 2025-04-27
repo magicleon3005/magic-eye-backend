@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -15,6 +14,12 @@ app.post('/api/rezultat', (req, res) => {
     console.log('Primljena riječ:', selectedWord);
     latestResult = selectedWord;
     res.status(200).json({ message: 'Primljeno!' });
+});
+
+app.post('/api/reset', (req, res) => {
+    console.log('Resetiran rezultat.');
+    latestResult = '';
+    res.status(200).json({ message: 'Resetirano!' });
 });
 
 app.get('/api/rezultat', (req, res) => {
